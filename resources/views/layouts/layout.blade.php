@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'HomeSphere')</title>
+    <title>@yield('title', 'HomeSphere') || HomeSphere </title>
     @vite('resources/css/app.css')
 </head>
 
@@ -30,27 +30,33 @@
                     <ul class="dropdown-content menu rounded-box z-[1] w-52 p-2 shadow absolute hidden">
                         <li class="font-semibold"><a href="{{ route('properties.create') }}">Add Property</a></li>
                         <li class="font-semibold"><a href="{{ route('stats.stats') }}">Statistics</a></li>
-                    </ul>   
+                    </ul>
                 </li>
 
                 <!-- Theme Toggle & Avatar Dropdown -->
+                <!-- Theme Toggle & Avatar Dropdown -->
                 <li>
-                    <div class="dropdown dropdown-end relative">
-                        <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+                    <div class="dropdown dropdown-end">
+                        <!-- Avatar Button -->
+                        <label tabindex="0" class="btn btn-ghost btn-circle avatar">
                             <div class="w-10 rounded-full">
-                                <img alt="User Avatar" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                                <img alt="User Avatar"
+                                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
                             </div>
-                        </div>
-                        <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow absolute right-0">
+                        </label>
+                        <!-- Dropdown Content -->
+                        <ul tabindex="0"
+                            class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                             <!-- Theme Toggle -->
                             <li>
                                 <label>
-                                    <input type="checkbox" value="dark" id="themeToggle" class="toggle theme-controller" />
+                                    <input type="checkbox" value="dark" id="themeToggle"
+                                        class="toggle theme-controller" />
                                     <span class="ml-2">Toggle Dark Mode</span>
                                 </label>
                             </li>
 
-                            <!-- Authentication Links (Login/Logout) -->
+                            <!-- Authentication Links -->
                             @auth
                                 <li><span>{{ auth()->user()->email }}</span></li>
                                 <li>
@@ -67,6 +73,8 @@
                         </ul>
                     </div>
                 </li>
+
+
             </ul>
         </div>
     </div>
@@ -105,11 +113,12 @@
         const dropdownButton = document.querySelector('.dropdown button');
         const dropdownMenu = document.querySelector('.dropdown ul');
 
+        // Toggle dropdown on click
         dropdownButton.addEventListener('click', () => {
             dropdownMenu.classList.toggle('hidden');
         });
 
-        // Close the dropdown when clicking outside of it
+        // Close dropdown when clicking outside
         document.addEventListener('click', (e) => {
             if (!dropdownButton.contains(e.target) && !dropdownMenu.contains(e.target)) {
                 dropdownMenu.classList.add('hidden');

@@ -13,28 +13,55 @@
 </div>
 
 
-<!-- Property Type Filter -->
-<div class="mt-6 flex gap-4">
-    <form method="GET" action="{{ route('properties.index') }}" class="w-full max-w-xs">
-        <select name="type" class="select select-bordered w-full" onchange="this.form.submit()">
-            <option value="">All Types</option>
-            <option value="apartment" @if(request('type') === 'apartment') selected @endif>Apartment</option>
-            <option value="house" @if(request('type') === 'house') selected @endif>House</option>
-            <option value="condo" @if(request('type') === 'condo') selected @endif>Condo</option>
-        </select>
-    </form>
+<!-- Filter Section -->
+<div class="p-6  rounded-lg shadow-md mt-6">
+    <h2 class="text-2xl font-semibold mb-4 ">Filter Properties</h2>
+    <form method="GET" action="{{ route('properties.index') }}" class="space-y-6">
+        <!-- Property Type Filter -->
+        <div>
+            <label class="block text-lg font-medium mb-2 ">Property Type</label>
+            <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+                <!-- Radio Button for 'All Types' -->
+                <label class="flex items-center gap-2 cursor-pointer">
+                    <input type="radio" name="type" value="" class="radio radio-primary"
+                        onchange="this.form.submit()" {{ request('type') === null || request('type') === '' ? 'checked' : '' }} />
+                    <span>All Types</span>
+                </label>
 
-    <!-- Wi-Fi Availability Filter -->
-    <form method="GET" action="{{ route('properties.index') }}" class="flex items-center">
-        <input type="hidden" name="type" value="{{ request('type') }}">
-        <label class="flex items-center gap-2 cursor-pointer">
-            <input type="checkbox" name="wifi_available" value="1" class="checkbox checkbox-primary"
-                onchange="this.form.submit()" {{ request('wifi_available') ? 'checked' : '' }} />
-            <span>Wi-Fi Available</span>
-        </label>
+                <!-- Radio Button for 'Apartment' -->
+                <label class="flex items-center gap-2 cursor-pointer">
+                    <input type="radio" name="type" value="apartment" class="radio radio-primary"
+                        onchange="this.form.submit()" {{ request('type') === 'apartment' ? 'checked' : '' }} />
+                    <span>Apartment</span>
+                </label>
+
+                <!-- Radio Button for 'House' -->
+                <label class="flex items-center gap-2 cursor-pointer">
+                    <input type="radio" name="type" value="house" class="radio radio-primary"
+                        onchange="this.form.submit()" {{ request('type') === 'house' ? 'checked' : '' }} />
+                    <span>House</span>
+                </label>
+
+                <!-- Radio Button for 'Condo' -->
+                <label class="flex items-center gap-2 cursor-pointer">
+                    <input type="radio" name="type" value="condo" class="radio radio-primary"
+                        onchange="this.form.submit()" {{ request('type') === 'condo' ? 'checked' : '' }} />
+                    <span>Condo</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Wi-Fi Availability Filter -->
+        <div>
+            <label class="block text-lg font-medium mb-2 ">Other Features</label>
+            <div class="flex items-center gap-2">
+                <input type="checkbox" name="wifi_available" value="1" class="checkbox checkbox-primary"
+                    onchange="this.form.submit()" {{ request('wifi_available') ? 'checked' : '' }} />
+                <span>Wi-Fi Available</span>
+            </div>
+        </div>
     </form>
 </div>
-
 
 
 <!-- Property List -->
