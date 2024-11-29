@@ -30,7 +30,6 @@
                     <ul class="dropdown-content menu rounded-box z-[1] w-52 p-2 shadow absolute hidden">
                         <li class="font-semibold"><a href="{{ route('properties.create') }}">Add Property</a></li>
                         <li class="font-semibold"><a href="{{ route('stats.stats') }}">Statistics</a></li>
-                        <li class="font-semibold"><a href="{{ route('properties.create') }}">Settings</a></li>
                     </ul>   
                 </li>
 
