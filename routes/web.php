@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\StatsController;
 use Illuminate\Support\Facades\Route;
 
 // Welcome page route
@@ -22,6 +23,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::get('/', function () {
     return redirect()->route('properties.index');
 })->middleware('auth');
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/statistics', [StatsController::class, 'index'])->name('stats.stats');
+});
 
 // Authentication routes (e.g., login, register)
 require __DIR__.'/auth.php';

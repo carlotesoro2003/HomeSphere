@@ -5,23 +5,26 @@ namespace App\Http\Controllers;
 use App\Models\Property;
 use Illuminate\Http\Request;
 
-
 class PropertyController extends Controller
 {
     public function index(Request $request)
     {
         $query = Property::query();
 
+        // Filter by type
         if ($request->has('type') && $request->type) {
             $query->where('type', $request->type);
+        }
+
+        // Filter by wifi availability
+        if ($request->has('wifi_available') && $request->wifi_available) {
+            $query->where('wifi_available', $request->wifi_available);
         }
 
         $properties = $query->get();
 
         return view('properties.index', compact('properties'));
     }
-
-
 
     public function create()
     {
@@ -66,7 +69,6 @@ class PropertyController extends Controller
         return view('properties.show', compact('property'));
     }
 
-
     public function update(Request $request, Property $property)
     {
         // Validate the request
@@ -76,7 +78,7 @@ class PropertyController extends Controller
             'price' => 'required|numeric',
             'type' => 'required',
             'location' => 'required',
-            'image' => 'nullable|image|max:2048', // Validate the image file
+            'image' => 'nullable|image|max:2048',
         ]);
 
         // Process the image if uploaded
@@ -105,5 +107,16 @@ class PropertyController extends Controller
         $property->delete();
 
         return redirect()->route('properties.index')->with('success', 'Property deleted successfully!');
+    }
+
+    public function stats()
+    {
+        // Example logic for the stats page
+        $totalProperties = Property::count();
+        $averagePrice = Property::avg('price');
+        $propertiesWithWifi = Property::where('wifi_available', true)->count();
+
+        // Pass data to the view
+        return view('properties.stats', compact('totalProperties', 'averagePrice', 'propertiesWithWifi'));
     }
 }

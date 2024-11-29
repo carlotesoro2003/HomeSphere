@@ -23,36 +23,50 @@
             <ul class="menu menu-horizontal px-1 items-center space-x-4">
                 <!-- Properties Link -->
                 <li class="font-semibold"><a href="{{ route('properties.index') }}">My Properties</a></li>
-                
+
                 <!-- Management Dropdown -->
                 <li class="dropdown relative">
                     <button class="btn m-1 btn-ghost">Management</button>
                     <ul class="dropdown-content menu rounded-box z-[1] w-52 p-2 shadow absolute hidden">
                         <li class="font-semibold"><a href="{{ route('properties.create') }}">Add Property</a></li>
-                        <li class="font-semibold"><a href="{{ route('properties.create') }}">Statistics</a></li>
+                        <li class="font-semibold"><a href="{{ route('stats.stats') }}">Statistics</a></li>
                         <li class="font-semibold"><a href="{{ route('properties.create') }}">Settings</a></li>
-                    </ul>
+                    </ul>   
                 </li>
 
-                <!-- Authentication Links (Login/Logout) -->
-                @auth
-                    <li>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit" class="btn btn-ghost font-semibold">Logout</button>
-                        </form>
-                    </li>
-                @endauth
-
-                @guest
-                    <li class="font-semibold"><a href="{{ route('login') }}">Login</a></li>
-                @endguest
-
-                <!-- Theme Toggle -->
+                <!-- Theme Toggle & Avatar Dropdown -->
                 <li>
-                    <label>
-                        <input type="checkbox" value="dark" id="themeToggle" class="toggle theme-controller" />
-                    </label>
+                    <div class="dropdown dropdown-end relative">
+                        <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+                            <div class="w-10 rounded-full">
+                                <img alt="User Avatar" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                            </div>
+                        </div>
+                        <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow absolute right-0">
+                            <!-- Theme Toggle -->
+                            <li>
+                                <label>
+                                    <input type="checkbox" value="dark" id="themeToggle" class="toggle theme-controller" />
+                                    <span class="ml-2">Toggle Dark Mode</span>
+                                </label>
+                            </li>
+
+                            <!-- Authentication Links (Login/Logout) -->
+                            @auth
+                                <li><span>{{ auth()->user()->email }}</span></li>
+                                <li>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button type="submit" class="btn btn-ghost btn-sm font-semibold">Logout</button>
+                                    </form>
+                                </li>
+                            @endauth
+
+                            @guest
+                                <li class="font-semibold"><a href="{{ route('login') }}">Login</a></li>
+                            @endguest
+                        </ul>
+                    </div>
                 </li>
             </ul>
         </div>
